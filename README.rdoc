@@ -7,6 +7,48 @@ This plugin adds drag and drop functionality using json.
 Almost all the code of this plugin originates from: http://code.google.com/p/nestedsortables/ so the credits should go there.
 
 == Installation
+To install use: 
+ git@github.com:bterkuile/nested_sortable.git
+Done!
 
-== Usage
+== Assumptions
+* You are using jQuery, this will not work with another library
+* You have git installed
+* You use this on your own risk
 
+== Simple setup example
+There are some assumptions/defaults for this plugin. Based on these I will give a simple setup of an example use.
+ rails g scaffold Page title:string parent_id:integer position:integer
+Make sure that the position has a default value, otherwise errors may occur
+ rake db:migrate
+in app/controllers/pages_controller :
+ nested_sortable_data_source_for :page, :columns => [[:title, 'My title'], [:created_at, 'Created:']]
+
+in your layout in the head section (haml style):
+ = include_nested_sortable_if_needed
+
+=== config/routes.rb
+  resources :pages do
+    collection do
+      get :order
+      post :order
+    end
+  end
+
+=== app/views/pages/index.html.haml
+In your view (assuming jQuery is already used in the project, and haml)
+:javascript
+  $(function(){
+    $('#pages_tree').NestedSortableWidget({
+      loadUrl: "#{url_for(:action => :order, :format => :json)}",
+      saveUrl: "#{url_for(:action => :order, :format => :json)}",
+      handle: true,
+      text:{
+        handle: "[drag]",
+        saveButton: "Update hierarchy"
+      },
+      colsWidth: [300]
+    });
+  });
+
+And now you're done

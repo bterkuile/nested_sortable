@@ -3,5 +3,7 @@ require 'fileutils'
 include FileUtils
 puts "Copying javascript files..."
 cp_r Dir[File.join(File.dirname(__FILE__), 'javascripts', "*")], File.join(Rails.root, 'public', 'javascripts')
-puts "Copying stylesheet"
+puts "Copying stylesheet..."
 cp_r Dir[File.join(File.dirname(__FILE__), 'stylesheets', "*")], File.join(Rails.root, 'public', 'stylesheets')
+puts "Copying images..."
+cp_r Dir[File.join(File.dirname(__FILE__), 'images', "*")], File.join(Rails.root, 'public', 'images')
