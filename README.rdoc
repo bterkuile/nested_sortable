@@ -1,0 +1,12 @@
+= NestedSortable
+==============
+
+This plugin adds drag and drop functionality using json.
+
+== Credits
+Almost all the code of this plugin originates from: http://code.google.com/p/nestedsortables/ so the credits should go there.
+
+== Installation
+
+== Usage
+
